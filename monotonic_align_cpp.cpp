@@ -1,41 +1,9 @@
 #include <torch/extension.h>
-#include <pybind11/pybind11.h>
-
-
-// void maximum_path_each(torch::Tensor &path, torch::Tensor &value, int t_y, int t_x, float max_neg_val=-1e9) {
-//     int index = t_x - 1;
-//     for (int y = 0; y < t_y; y++) {
-//         for (int x = std::max(0, t_x + y - t_y); x < std::min(t_x, y + 1); x++) {
-//             float v_cur;
-//             float v_prev;
-//             if (x == y) {
-//                 v_cur = max_neg_val;
-//             }
-//             else {
-//                 v_cur = value.index({y - 1, x});
-//                 //v_cur = value[y-1, x];
-//             }
-//             if (x == 0) {
-//                 if (y == 0) {
-//                     v_prev = 0.;
-//                 }
-//                 else {
-//                     v_prev = max_neg_val;
-//                 }
-//             }
-//             else {
-//                 v_prev = value.index({y - 1, x});
-//                 //v_prev = value[y-1, x-1]
-//             }
-//             value.index({y, x}) += std::max(v_prev, v_cur);
-//         }
-//     }
-// }
 
 torch::Tensor maximum_path_cpp(const torch::Tensor& neg_cent, const torch::Tensor& mask) {
     int64_t batch_size = neg_cent.size(0);
     torch::Tensor path = torch::zeros_like(neg_cent);
-    torch::Tensor t_t_max = mask.sum(1).index({torch::indexing::Slice(), 0}).to(torch::kInt);  // Индексация по 0-й колонке
+    torch::Tensor t_t_max = mask.sum(1).index({torch::indexing::Slice(), 0}).to(torch::kInt);
     torch::Tensor t_s_max = mask.sum(2).index({torch::indexing::Slice(), 0}).to(torch::kInt);
 
     torch::parallel_for(
@@ -88,11 +56,7 @@ torch::Tensor maximum_path_cpp(const torch::Tensor& neg_cent, const torch::Tenso
 }
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
-    m.doc() = "pybind11 example plugin";
+    m.doc() = "Module with search monotonic alignment algorithm";
     m.def("maximum_path_cpp", &maximum_path_cpp,
           "Search monotonic alignment algorithm");
-    static const auto pyi_stub = R"(
-    def maximum_path_cpp(a: int, b: int) -> int: ...
-    )";
-    m.attr("__annotations__") = py::str(pyi_stub);
 }

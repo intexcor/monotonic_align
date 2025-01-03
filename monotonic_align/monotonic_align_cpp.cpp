@@ -38,13 +38,13 @@ torch::Tensor maximum_path_cpp(const torch::Tensor& neg_cent, const torch::Tenso
                             }
                         }
                         else {
-                            v_prev = value.index({y - 1, x}).item<float>();
+                            v_prev = value.index({y - 1, x - 1}).item<float>();
                         }
                         value.index({y, x}) += std::max(v_prev, v_cur);
                     }
                 }
 
-                for (int y_n = t_y - 1; y_n > -1; y_n--) {
+                for (int y_n = t_y - 1; y_n >= 0; y_n--) {
                     path_b.index({y_n, index}) = 1;
                     if ((index != 0) && (index == y_n || value.index({y_n - 1, index}).item<float>() < value.index({y_n - 1, index - 1}).item<float>())) {
                         index -= 1;

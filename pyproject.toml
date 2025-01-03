@@ -1,3 +1,12 @@
 [build-system]
 requires = ["setuptools", "torch"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "monotonic_align"
+version = "0.0.28"
+
+[tool.setuptools.packages.find]
+include = [
+    "monotonic_align",
+]

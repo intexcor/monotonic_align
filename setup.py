@@ -6,8 +6,8 @@ ext_modules = [
     CppExtension(
         "monotonic_align._C",
         ["monotonic_align_cpp/monotonic_align_cpp.cpp"],
-        extra_compile_args=["-O3" "-march=native" "-fopenmp" "-flto" "-pthread" "-static-libstdc++"],
-        extra_link_args=["-O3" "-march=native" "-fopenmp" "-flto" "-pthread" "-static-libstdc++"]
+        extra_compile_args=["-O3", "-march=native", "-fopenmp", "-flto", "-pthread", "-static-libstdc++"],
+        extra_link_args=["-O3", "-march=native", "-fopenmp", "-flto", "-pthread", "-static-libstdc++"]
     )
 ]
 

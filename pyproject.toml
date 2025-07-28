@@ -3,21 +3,13 @@ requires = ["setuptools", "torch"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "monotonic_align"
-version = "0.0.30"
-authors = [
-    {name = "Ivan Shivalov"},
-]
-description = "Module with search monotonic alignment algorithm"
-readme = "README.md"
-license = {file = "LICENSE"}
-urls = {url = "https://github.com/intexcor/monotonic_align"}
-
-dependencies = [
-    "torch",
-]
+name="monotonic_align"
+dynamic = ["version"]
 
 [tool.setuptools.packages.find]
 include = [
     "monotonic_align",
 ]
+
+[tool.setuptools.dynamic]
+version = {attr = "monotonic_align.__version__"}

@@ -5,7 +5,7 @@ __all__ = ["maximum_path_cpp"]
 
 
 def maximum_path_cpp(a: Tensor, b: Tensor) -> Tensor:
-    """Performs a * b + c in an efficient fused kernel"""
+    """Monotonic alignment C++ implementation."""
     return torch.ops.monotonic_align.maximum_path_cpp.default(a, b)
 
 

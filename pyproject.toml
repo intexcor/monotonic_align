@@ -5,6 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name="monotonic_align"
 dynamic = ["version"]
+authors = [
+    {name = "Ivan Shivalov"},
+]
+description = "Module with search monotonic alignment algorithm"
+readme = "README.md"
+license = {file = "LICENSE"}
+urls = {url = "https://github.com/intexcor/monotonic_align"}
 
 [tool.setuptools.packages.find]
 include = [
